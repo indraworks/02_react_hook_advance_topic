@@ -9,13 +9,23 @@ const UseStateObject = () => {
   })
 
   const ChangeMessage = () => {
-    setPerson({ ...person, message: "guk guk myStudent!" })
+    //setPerson({ ...person, message: "guk guk myStudent!" })
+    //jika 3 3 nya mau dioubah dengan cara object
+
+    setPerson({
+      ...person,
+      id: "4",
+      name: "indra suryawan",
+      message: "hello buddy new ways",
+    })
+    console.log("kondisi belum update", { ...person })
+    console.log("ini hasil =", { ...person, id: "6" })
   }
 
   return (
     <>
-      <h4>person.id</h4>
-      <h4>person.name</h4>
+      <h4>{person.id}</h4>
+      <h4>{person.name}</h4>
       <h4>{person.message}</h4>
 
       <button onClick={ChangeMessage}>Remove</button>
@@ -24,6 +34,38 @@ const UseStateObject = () => {
 }
 
 export default UseStateObject
+
+/*
+nah pertanyaan menarik lha saya pingin ganti semuanya tapi pakai object gimana 
+NAH tetap harus dilakukan dengan cara spread  yaotu perintah OR yg artinya copy 
+sluruh sisa ,jadi sread itu mmbuka bungkusannya dan mengeluarkan sisanya 
+dar piihan 
+jadi kalau kita pakai cara object utk memilih setPerson dari masing2 element akan jadi sperti 
+ini :
+setPerson({...person,id:3,name:'aku',message:'apa kabar sayang'});
+
+supaya kita paham jadi sebenarnya utk ...person adalah mengeluarkan object element dari object
+jadi individu2 dan mmbolehkan individu tersebut diupdate  contoh:
+
+ console.log("ini hasil =", { ...person, id: "6" }) *
+
+ini hasil = {id: '6', name: 'Thomason', message: 'Good Morning student'}
+jadi kalau ditulis * diatas seakan2 begini :
+{ name:'thomason',mesasge:'Goodmorning',id:'6',} 
+jadi element2 tsb terpecah dan merupaka sisa dari yg bukan di update 
+jadi name dan mesage adalah  bagian dari isi ...person  sisa dari yg bukan diupdate!
+
+contoh biar jelas :
+console.log(kondisi belup update,{...person})
+kondisi belum update {id: '2', name: 'Thomason', message: 'Good Morning student'}
+nah terlihat {..person } sisanya adalah smua individu2 yg ada di element object!
+spread nerlaku pada object dan array!
+
+
+
+
+
+*/
 
 /*
 
