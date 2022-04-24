@@ -13,7 +13,15 @@ const UseEffectBasics = () => {
     if (value > 1) {
       document.title = `New Message ${value}`
     }
+    //nah value di list ini disebut dependency lst
+    //si useEfect ini di triger dari berubahnya value ini bukan dari re-render
   }, [value])
+
+  //kita juaga dalam sbuah component function bisa taruh beberapa useEffect semau kita
+  //gak ada masalah  yg dibawah ini di triger oleh re-render saja  listnya kosong!
+  useEffect(() => {
+    console.log("hello world")
+  }, [])
 
   console.log("Render Component")
   return (
@@ -30,12 +38,10 @@ const UseEffectBasics = () => {
 export default UseEffectBasics
 
 /*
-defaultnya useEffect hanya berkerja jika ada render diperbarui
-nah pada bagian 2 ini useEffect kerja jika saya tekan tombol counter
-stiap tekan tombol render diperbaharui maka disaat itu useEfect bekerja 
-
-dari atas terlihat program akan sama terus jalan 
-pertama render component krn ada refresh useEfect jalan kan clg call useEffect
-skalian check counter jika counter >1 nah stlah > 1 judul dari page berubah ! 
-new Message 2 
+UseEffect sbgai tambahan bisa di triger dari berubahnya variable nah inii
+didalamnya ada [ ] list kita sebut sebgai dependency list 
+nah kalau variable berubah didalam dependecy list tsb maka saat itulah si Use Effect bekerja 
+ter triger 
+2) useEfect jika dependecy listnya empty tanpa ada variabel alias kosong maka dia 
+ hanya tertirger jika ada re-render/peraharui render.
 */
