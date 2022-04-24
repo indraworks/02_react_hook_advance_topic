@@ -1,5 +1,5 @@
 import React from "react"
-import Setup from "./tutorial/1-useState/setup/5-useState-counter"
+import Setup from "./tutorial/2-useEffect/setup/1-useEffect-basics"
 
 const App = () => {
   return (
@@ -25,4 +25,9 @@ Nah kita kerja pada tutorial di tutorial ada 2 setup dan final
 final adalah jawaban solkusiton dari om SMilga 
 yg setup kita mesti kerjakan sendiri 
 nah setup dimport di App js 
+
+
+
+
+
 */
