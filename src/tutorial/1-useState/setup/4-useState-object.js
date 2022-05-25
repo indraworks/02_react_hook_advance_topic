@@ -1,39 +1,73 @@
-import React, { useState } from "react"
-//import data from '../../../data'
+import React from "react"
 
-const UseStateObject = () => {
-  const [person, setPerson] = useState({
-    id: "2",
-    name: "Thomason",
-    message: "Good Morning student",
+const useStateObject = () => {
+  const [person, setPerson] = React.useState({
+    name: "Peterson",
+    age: 24,
+    message: "iam jonior Sofware Engineer",
   })
+  //kalamu obejct mau di changem maka mengunakan operasi
+  //spread ...person,aslinya sisa dari  ,dan disblahnya adalah eleemnt obejct yg mau di update sbb:
 
   const ChangeMessage = () => {
-    //setPerson({ ...person, message: "guk guk myStudent!" })
-    //jika 3 3 nya mau dioubah dengan cara object
-
     setPerson({
       ...person,
-      id: "4",
-      name: "indra suryawan",
-      message: "hello buddy new ways",
+      message: "hi iam web dan mobile deveoper",
+      //kalau mau ganti smua tinggal isikan saja element yg lain
     })
-    console.log("kondisi belum update", { ...person })
-    console.log("ini hasil =", { ...person, id: "6" })
   }
 
   return (
-    <>
-      <h4>{person.id}</h4>
+    <section>
+      <h3>UseState with Object</h3>
       <h4>{person.name}</h4>
+      <h4>{person.age}</h4>
       <h4>{person.message}</h4>
-
-      <button onClick={ChangeMessage}>Remove</button>
-    </>
+      <button className='btn' onClick={ChangeMessage}>
+        Change!
+      </button>
+    </section>
   )
 }
 
-export default UseStateObject
+export default useStateObject
+
+// import React, { useState } from "react"
+// //import data from '../../../data'
+
+// const UseStateObject = () => {
+//   const [person, setPerson] = useState({
+//     id: "2",
+//     name: "Thomason",
+//     message: "Good Morning student",
+//   })
+
+//   const ChangeMessage = () => {
+//     //setPerson({ ...person, message: "guk guk myStudent!" })
+//     //jika 3 3 nya mau dioubah dengan cara object
+
+//     setPerson({
+//       ...person,
+//       id: "4",
+//       name: "indra suryawan",
+//       message: "hello buddy new ways",
+//     })
+//     console.log("kondisi belum update", { ...person })
+//     console.log("ini hasil =", { ...person, id: "6" })
+//   }
+
+//   return (
+//     <>
+//       <h4>{person.id}</h4>
+//       <h4>{person.name}</h4>
+//       <h4>{person.message}</h4>
+
+//       <button onClick={ChangeMessage}>Remove</button>
+//     </>
+//   )
+// }
+
+// export default UseStateObject
 
 /*
 nah pertanyaan menarik lha saya pingin ganti semuanya tapi pakai object gimana 
