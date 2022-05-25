@@ -1,21 +1,21 @@
 import React from "react"
-import { data } from "../../../data"
-//kalau data diambil dari luar maka harsu pakai React.useState
-
+//ambil data
+import data from "../../../data"
 const UseStateArray = () => {
-  const [people, setPeople] = React.useState(data) //data berupa array object
+  //ingat hook harus ada dalam main function kalau disetup
+  const [siswa, setSiswa] = React.useState(data)
+  //function remove
 
-  //funct remveArray kalau param maka wajib dipanggile dgn invoje ()=>{}
   const removeItem = (id) => {
-    let newPeople = people.filter((person) => person.id !== id)
-    //ubah list dari person sekaligud di render baru!
-    setPeople(newPeople)
+    let newSiswa = siswa.filter((item) => item.id !== id)
+    //kita set isi array dgn newSiswa
+    setSiswa(newSiswa)
   }
 
   return (
     <>
-      {people.map((person) => {
-        const { id, name } = person
+      {siswa.map((item) => {
+        const { id, name } = item
         return (
           <div key={id} className='item'>
             <h4>{name}</h4>
@@ -23,14 +23,18 @@ const UseStateArray = () => {
           </div>
         )
       })}
-      <button className='btn' onClick={() => setPeople([])}>
-        Clear All
-      </button>
     </>
   )
 }
 
 export default UseStateArray
+
+/*
+point penting adalah utk sbuah event maka harus dgn invoke kalau hendak panggil invoe 
+()=> {namaFUnction }
+
+
+*/
 
 /*
 utk data dia kan itu object dalam array 
