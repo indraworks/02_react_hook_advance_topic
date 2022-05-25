@@ -1,16 +1,16 @@
 import React, { useState } from "react"
 
 const UseStateCounter = () => {
-  const [value, setValue] = useState(0)
-
-  const Decreased = () => {
-    setValue(value - 1)
+  const [value, setvalue] = useState(0)
+  const Adding = () => {
+    setvalue(value + 1)
   }
-  const Increased = () => {
-    setValue(value + 1)
+  const Minus = () => {
+    let i = 0
+    setvalue(value - 1)
   }
-  const Reseted = () => {
-    setValue(0)
+  const Resetting = () => {
+    setvalue(0)
   }
 
   return (
@@ -18,14 +18,14 @@ const UseStateCounter = () => {
       <h3>Counter Example</h3>
       <h1>{value}</h1>
       <div className='section'>
-        <button className='btn' onClick={Decreased}>
-          Decrease
+        <button className='btn' onClick={Adding}>
+          "+"
         </button>
-        <button className='btn' onClick={Reseted}>
-          Reset
+        <button className='btn' onClick={Resetting}>
+          "R"
         </button>
-        <button className='btn' onClick={Increased}>
-          Increase
+        <button className='btn' onClick={Minus}>
+          "-"
         </button>
       </div>
     </>
