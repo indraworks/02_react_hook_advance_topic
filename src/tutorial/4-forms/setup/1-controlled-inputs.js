@@ -5,18 +5,27 @@ import React, { useState } from "react"
 // React
 // value, onChange
 /*
-sebagai caatan bisanya utk form ada action namanya handke submit nah 
-itu dari form dgn panggil functionnya 
-nah bisa juga dgn tombol dari button dimana button masih anggota control dari 
-form ,tapy buttonya harus bertype ="submit" 
-
+/ReACT
+utk hooks jadi nilamai eleemnt adalah object 
+  e--->e.target.value
+  nah diinput value yg kita isi nilai element kita ref---> state
+  disini state sesuai dgn nama input name,email , maka  value= {name} dan value={}
+  -dalam input juga harus ada onChange utk stiap perubahan
+  onChange pada input adalah event perubahan yg terjadi thd nilai2 inputForm,
+  nah onCnahe ini value kita beri functioan dari state  yaiut  ()=>setName(e.target.value)
+  sbb:
 */
-const handleSubmit = (e) => {
-  e.preventDefault() //utk hindary browser refresh
-  console.log("hello world")
-}
 
 const ControlledInputs = () => {
+  const [name, setName] = useState("")
+  const [email, setEmail] = useState("")
+
+  const handleSubmit = (e) => {
+    e.preventDefault() //utk hindary browser refresh
+    console.log("name ==", name)
+    console.log("email ==", email)
+  }
+
   return (
     <>
       <h4>controlled inputs</h4>
@@ -28,11 +37,20 @@ const ControlledInputs = () => {
             id='firstName'
             placeholder='firstName'
             name='firstName'
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
         <div className='form-control'>
           <label htmlFor='email'>Email</label>
-          <input type='text' placeholder='email' id='email' name='email' />
+          <input
+            type='text'
+            placeholder='email'
+            id='email'
+            name='email'
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
         </div>
         <button type='submit'>Submit</button>
       </form>
@@ -41,6 +59,25 @@ const ControlledInputs = () => {
 }
 
 export default ControlledInputs
+
+/*
+
+sebagai caatan bisanya utk form ada action namanya handke submit nah 
+itu dari form dgn panggil functionnya 
+nah bisa juga dgn tombol dari button dimana button masih anggota control dari 
+form ,tapy buttonya harus bertype ="submit" 
+
+
+
+
+
+*/
+
+/*
+
+
+
+*/
 
 /*
 
