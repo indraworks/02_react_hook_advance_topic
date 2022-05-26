@@ -16,14 +16,59 @@ utk hooks jadi nilamai eleemnt adalah object
   sbb:
 */
 
+/*REACT-2
+bagian 2 dari React ini adalaj kita akan gunaakn state ke 3 yg isinya adalah array object 
+people =[{name0,emmail0} ,  {name1,emmail1}       ] nah state ini akan kita isikan dalam bentuk araray yg 
+const [people,setPeople] = useState([])
+nah ketika kit atekan tombol button maka yg kita lakaknan adalah 
+mengisi state people ini dgn 2 state dari name,email yg sudah diref ke input control pd form 
+ingat utk setting pada aray harus dgn animous functuon 
+dan nilai return karna perbarui ,jadi stalh di spread...,jadi individue di edit dikemablikan 
+setPeople(()=>
+[...people,{ 
+  name:name,email:email
+}])
+namememail sblahkanan adalah state dari input control 
+nah setlah kita tambahkan makan inputcontrol jarus clear maka 
+setName("")
+setEmail("")
+=====add item pada list :
+nah kita akab buat list utk tampilkan people state pada list utk itu 
+kita baut map nah yg menarik kita akan buat idnya adar masing2 uniq  
+id bisa dibuat dgn tangal id = new Date.
+*/
+
 const ControlledInputs = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  const [people, setPeople] = useState([])
 
   const handleSubmit = (e) => {
     e.preventDefault() //utk hindary browser refresh
-    console.log("name ==", name)
-    console.log("email ==", email)
+    // console.log("name ==", name)
+    // console.log("email ==", email)
+    //let itemNew = { name: name, email: email }
+    if (name && email) {
+      console.log(` ${name} ${email}`)
+      let newItem = { id: new Date().getTime(), name: name, email: email }
+      console.log(newItem)
+      setPeople((people) => [...people, newItem])
+      //kalau liat state jangan di console.log sbgaiknya di tool react yg ada di panel console
+      //Strict modenya di off dulu ilangin biar gaj error !
+      /*
+       {email: "sdsadsadasd", name: "ddasdsadsad"}
+name:"ddasdsadsad"
+email:sdsadsadasd"
+
+: 
+
+
+      */
+
+      console.log(people)
+    } else {
+      console.log("empty value")
+    }
   }
 
   return (
@@ -54,6 +99,17 @@ const ControlledInputs = () => {
         </div>
         <button type='submit'>Submit</button>
       </form>
+
+      {people.map((item) => {
+        const { id, name, email } = item
+
+        return (
+          <div className='item'>
+            <h4 key={id}>{name}</h4>
+            <p>{email}</p>
+          </div>
+        )
+      })}
     </>
   )
 }
