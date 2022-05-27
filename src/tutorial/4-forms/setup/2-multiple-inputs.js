@@ -37,6 +37,14 @@ const ControlMultipleInputs = () => {
     e.preventDefault()
     const name = e.target.name
     const value = e.target.value
+    /*
+   knapa pakai spread??ya karena 
+   ...person tak lain adalah sisa keseleruhan 
+   sedangkan kita tahu bahwa [name]:value adalah 
+   dinamic kita tak tahu saat change terjadi yg diisi yg mana saja 
+   jadi pasti ada sisa selain yg diisi,itu yg dispread 
+
+    */
     setPerson({ ...person, [name]: value })
   }
 
