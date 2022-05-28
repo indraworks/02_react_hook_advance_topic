@@ -1,62 +1,50 @@
-import React, { useState, useReducer } from "react"
+import React, { useReducer, useState } from "react"
+
 import Modal from "./Modal"
-import { data } from "../../../data"
-// reducer function & defaultState tulis dulu reducer func disini
-//tidak didalamm index functio /main yg ada return(<> </>)
-//jadi sekali lagi di atas main program nulisnya !
+import data from "../../../data"
+
+//declare func reducer
 const reducer = (state, action) => {}
-
+//declare defaultState
 const defaultState = {
-  people: data,
-  isModalOpen: false,
-  modalContent: "Hello World",
+  people: [],
+  isShowModalOpen: false,
+  titleModal: "" /*ini dimasukan ke component Modal sbgai props   */,
 }
-
-//main program
 const Index = () => {
-  const [name, setName] = useState("")
-  //peoplediganti dng useReducer
-  const [state, dispatch] = useReducer(reducer, defaultState) //reducer adalah function yg akan mngubah
-  //state2 stlah dispatch melakukan action
-  //reducer trdiir atas state & action
-  //nah utk state nilai awalnya adalah dari defaultState
-  //shingga pada bagian return dibawah  state.showModalOpen adalah false
-  //nah modalContent sendiri adalah mrupakan props utk Modal compoennt passing text param tulisan pada Modal
+  const [firstName, setFirstName] = useState("")
+  const [state, dispatch] = useReducer(reducer, defaultState)
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    if (name) {
-    } else {
-    }
+    setFirstName(e.target.value)
   }
 
   return (
     <>
-      <h2>useReducer</h2>
-      {state.isModalOpen && <Modal modalContent={state.modalContent} />}
-      <form onSubmit={handleSubmit} className='form'>
-        <div>
+      {state.isShowModalOpen && <Modal textModal={state.titleModal} />}
+      <form type='submit' className='form'>
+        <div className='form-control'>
+          <label htmlFor='name'>Name:</label>
           <input
             type='text'
-            placeholder='name'
-            value={name}
-            onChange={(e) => setName(e.target.value)}
+            id='firstName'
+            name='firstName'
+            onChange={firstName}
           />
         </div>
-        <button className='btn' type='submit' onClick={handleSubmit}>
-          Add Person
+        <button className='btn' onClick={handleSubmit}>
+          ENTER
         </button>
       </form>
-      <div>
-        {state.people.map((person) => {
-          const { id, name } = person
-          return (
-            <ul key={id}>
-              <li className='item'>{name}</li>
-            </ul>
-          )
-        })}
-      </div>
+      {state.people.map((person) => {
+        const { id, name } = person
+        return (
+          <div className='item'>
+            <ul key={id}>{name}</ul>
+          </div>
+        )
+      })}
     </>
   )
 }
@@ -64,29 +52,19 @@ const Index = () => {
 export default Index
 
 /*
-bagian refactor:
-jadi dibagian 2 ini kuta akan menggunakan reducer nah apa itu usereducer 
-sbuah function builtin yg mana dia mengambil atau getting state, getting action 
-utk melakukan action ini dia mmbutuhkan fucntion yg namanya dispacth ,
-nah utk supay dispatch ini bekerja maka dia akan menghubungkanya pada function kitasebut reducer
-nah dalam reducer ini nnti kita akan buat state,action . 
-nah utk state sndiri kita harus punya nilai awal atau initialState atau defaultState 
-yg berupa object2 element2 state 
-
-const defaultState = {
-  peoples:[],
-  isModalOpen:false,
-  modalContent:'' 
-}
-
+jadi intinya dengan jalankan "dispatch" nnti maka otomatis 2 yg dijalankan 
+yaitu perubahan "state" krn dari melakukan "action" di function reducer 
 
 */
 
-/*bagian awal :
-
-utk awal2 sama dgn form yg sudah kita bahas disini akan dibahas penggunaan usreducers, utk index.js sengaja dibuat file agar nnti pada saat do App.js
-importnya without to go to specific file under setup dir. 
-disni kita akan buat modal tampilan jika error 
-
+/*
+mmbuat form utk input dan button 
+mmbuat state utk name, 
+mmngunakan useReducer dimana trdiiri dari state berasal dari defaultState dan reducer sbuah functin 
+berisi (state,action ) dimana utk ubah state awal/defautl state tadi 
+defaultState berisi element object ( people isi data ,showModal = false, titleModal="" ( ini tulusan props utk modal))
+NOTE PENTING:
+function reducer dideclare diluar function component main /utama 
+defaultState ddeclare juga di luar functio component main /utama 
 
 */
