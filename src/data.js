@@ -4,5 +4,3 @@ export const data = [
   { id: 3, name: "susan" },
   { id: 4, name: "anna" },
 ]
-
-export default data
