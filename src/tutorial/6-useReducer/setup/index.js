@@ -32,16 +32,42 @@ const reducer = (state, action) => {
     //nah statement diatas kita masukan spread state.people dan tambah dgn newitem yg diwakili oleh variable action.payload
     //nah sesuadah update newItem variable barulah dibwah kita secara ksluruhan update "state" yg isinya element
     //people,modal dan textModal tadi
+    //INTINYA AWALYS ALWAYS JIKA kita return state kita mesti lakukan :copy state atau disebut spread state
+    //yaitu :...state ,ini wajib!!!
     return {
       //
-      //disini di spread state ( ygisinya poeple,textmodal,modal di update)
+      //disini di spread state ( ygisinya poeple,textmodal,modal di update) ccc
       ...state,
       people: newItem,
       isShowModalOpen: true,
       titleModal: "add_item done",
     }
-  } else {
-    console.log("no return ")
+  }
+  if (action.type === "NO_VALUE") {
+    return {
+      ...state,
+      isShowModalOpen: true,
+      titleModal: "Please fill value ",
+    }
+  }
+  if (action.type === "CLOSE_MODAL") {
+    return {
+      ...state,
+      isShowModalOpen: false,
+    }
+  }
+  if (action.type === "REMOVE_ITEM") {
+    //ada fildter,ada find(utk update)
+    const newItems = state.people.filter(
+      (person) => person.id !== action.payload
+    )
+    //nah update statenya
+    return {
+      ...state,
+      people: newItems,
+      isShowModalOpen: true,
+      titleModal: "Remove-Item",
+    }
   }
 }
 //declare defaultState
@@ -66,12 +92,32 @@ const Index = () => {
         //nah nnti di bagian state direducernya kita akan
         //ubah state dlm hal ini people
       })
+      setFirstName("")
+    } else {
+      dispatch({
+        type: "NO_VALUE",
+      })
     }
+  }
+
+  //nah utk close modal kita buat functuon sendri dan functon ini aka dispatch ke  state di reducer
+  ///nah tapi utk buaat false harus ada penundanya dulu ,utk iut kita jadikan props di component Modal
+  //sbb: closeModal masuk ke component Modal sbgai props nnti isiya kita buat delay 3s dgn useEffect
+  //stalh 3s baru NILAI STATE  : isShowModalOpen jadi false !
+  //jadi close modal itu adalah function yg ada /hidup di <Modal/> component
+  // ktika button diklik dia "closeModal" akan active krn sbgai function yg "mandiri"
+  //yg mana active krn adanya timer stlah 3 detik dia active krim dispach ke reducer utk close modal
+  const closeModal = () => {
+    dispatch({
+      type: "CLOSE_MODAL",
+    })
   }
 
   return (
     <>
-      {state.isShowModalOpen && <Modal textModal={state.titleModal} />}
+      {state.isShowModalOpen && (
+        <Modal textModal={state.titleModal} closeModal={closeModal} />
+      )}
       <form type='submit' className='form'>
         <div className='form-control'>
           <label htmlFor='firstName'>Name:</label>
@@ -91,7 +137,17 @@ const Index = () => {
         const { id, name } = person
         return (
           <div className='item'>
-            <ul key={id}>{name}</ul>
+            <h4 key={id}>{name}</h4>
+            <button
+              onClick={() => dispatch({ type: "REMOVE_ITEM", payload: id })}
+            >
+              remove
+            </button>
+            <button
+              onClick={() => dispatch({ type: "EDIT_ITEM", payload: id })}
+            >
+              remove
+            </button>
           </div>
         )
       })}
@@ -100,6 +156,15 @@ const Index = () => {
 }
 
 export default Index
+//setlah latiah ini kita buat latihan grocey budds karena libatkan CRUD
+//itu utk yg biasa
+//utk contextAPI dan useReducer gunakan latihan 14 -Cart
+//nah stlah itu belajar contexxt baru kita ke
+/*
+Penjesalan close modal kita akan buat close_modal dan dia close stlah 3 second utk iut 
+kitamasukan nnti props domodal timer 3 second setelahnya baru modal tsb tertutup
+
+*/
 
 /*
 POINT PENTING use Reducer bagain 2:
@@ -134,18 +199,8 @@ dispatch({
 //penjelasan kalau update bedanya adalah 
 //cari indexnya ...ktmu masukan nilai baru dgn varable 
  
- const findId = people.find((item)=>item.id === id)
- if (findId) {
 
-   [...people,{findId.id,findId.name:firstName}]
- }
  
-
-
-
-
-
-
 
 */
 
