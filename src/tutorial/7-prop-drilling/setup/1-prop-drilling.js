@@ -66,9 +66,10 @@ const List = ({ people, removePerson }) => {
 }
 
 /*
-PENTING daripada tulis <SinglePerson key={person.id} id={person.id} name={person.name} />
+PENTING!!! daripada tulis <SinglePerson key={person.id} id={person.id} name={person.name} />
 utk id={person.id} name={person.name}
-maka kita bisa langsung tulis spread operator yaitu {...person}
+maka kita bisa langsung tulis spread operator yaitu {...person} karena
+kalau dbonkae {..person } itu artinya sama dgn  {id:1,name:'indra',id:2,name:'yudi' ,..dst} nah dari padai sprti itu langsung saja diganti/jadikan spread!
 yg intinya individu2  id ,name sudah dipisah2 sbgai props /dispread!
 sehingga  kita tulis lagi
  <SinglePerson key={item.id} {...person} />
@@ -100,7 +101,9 @@ export default PropDrilling
 /*
 nah diatas itulah disebut props drilling jadi masukan trus kebawah propsnya 
 speti orang ngebor //droill dan ini tak bagaus jika banyak component anak dibawah 
-utk itu kita gunaan context
+utk itu kita gunaan contextAPI 
+jadi udah gak perlu lagi ngebor props /prop drilling ke anak 
+ketingkat yg bawah!
 
 
 */
