@@ -26,11 +26,30 @@ utk hooks jadi nilamai eleemnt adalah  event object
 const ControlledInputs = () => {
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
+  //kita akan tampung name emald masukan dalam array yaitu di variable array
+  //kit aberi nama people begit di submit ini masuk stlahnya kita renderl dalam list
+  //nah syarat masuk dalam list adalah jika name dan email tidak kosong
+  const [people, setPeople] = useState([])
+
   const handleSubmit = (e) => {
     e.preventDefault() //utk hindari bounce pada browser/refresh
-    console.log(name)
-
-    console.log(email)
+    if (email && name) {
+      //name & email dumasukan object
+      const person = {
+        id: new Date().getTime().toString(),
+        name: name,
+        email: email,
+      }
+      //{name:name,email:email}
+      //dlm es6 kalau key value sama bisa dtiulis {name,email}
+      setPeople((people) => {
+        return [...people, person]
+      })
+      setEmail("")
+      setName("")
+    } else {
+      console.log("zero added")
+    }
   }
 
   return (
@@ -61,6 +80,14 @@ const ControlledInputs = () => {
             Add People
           </button>
         </form>
+        {people.map((item, index) => {
+          const { id, name, email } = item
+          return (
+            <div className='item' key={id}>
+              <h4>{name}</h4> <p>{email}</p>
+            </div>
+          )
+        })}
       </article>
     </>
   )
