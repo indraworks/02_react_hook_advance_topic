@@ -6,55 +6,55 @@ import React, { useState } from "react"
 // value, onChange
 // dynamic object keys
 /*
-jadi gini control multiple input inimaksudya kita akan melakaukan hanya 1 kali saja 
-update tidak setiap input dibuat statenya satu2 di setState masing2 per-input 
-caranya adalah kita mmbuat sbuah state object yg elementnya terdiiri atas input2 tsb 
-dan ini dalam 1 buah object state
-nah refernsinya adalah dengan ambil dinamy object keys dalam hal ini adalah name dari input
-dan valuenya 
-kita akan gunakan event onChange dari tiap2 input tsb jika dia betuba kita tingal set dari 
-[name] = value 
-ini intinya jadi otomatsi siapa yg diupdate itu yg masuk kesana 
-===> nah finahmya buah habdleChange utk update sluruh /array yg ada atau perubahanya ! 
-jadi ada 2 event onChange dan handleSubmit( yaitu finalnya perubahan input disimpan dan diolah )
+jadi mulitipel input ini sudah dibahas dijavascript ngget object dynamic key values referal jad dgn pakai tanda ['keypbjec']: value  maka bisa diambil eelemtn obejct skligus updatejuga 
+disni name,email,age 
 
 */
 
 const ControlMultipleInputs = () => {
   //disini ada 4 input name,email,umur ,gaji
+  //dimasukan dalam object element person
   const [person, setPerson] = useState({
     firstName: "",
     email: "",
     age: "",
     salary: "",
   })
-
-  //utk simpan object2 di array
+  //stlah masuk person dimasukan ke peiople utk tampung banyk object
+  //yg person utk tampung 1 buah object eleent dari input
+  //jadi 2x kerja
   const [people, setPeople] = useState([])
 
-  //utk tiap input waktu eventChange nilai berubah base nilai yg ada diinput saat itu
-  const setChange = (e) => {
+  //utk simpan object2 di array
+
+  //utk tiap input waktu eventChange nilai berubah base nilai
+  //yg ada diinput saat itu pada evebt onChange = {setChange}
+  ////onhChange = setChange dimana masing2 name disii etarget.name
+  //dan value = e.target.value
+  const handleChange = (e) => {
     e.preventDefault()
     const name = e.target.name
     const value = e.target.value
-    /*
-   knapa pakai spread??ya karena 
-   ...person tak lain adalah sisa keseleruhan 
-   sedangkan kita tahu bahwa [name]:value adalah 
-   dinamic kita tak tahu saat change terjadi yg diisi yg mana saja 
-   jadi pasti ada sisa selain yg diisi,itu yg dispread 
-
-    */
+    //spreading element person object selain dari element yg diupdate!
     setPerson({ ...person, [name]: value })
+    console.log(`${name} : ${value}`)
   }
 
   //nilai yg ada form ,final smua nilai input dimasukan arrya
+  //[name] mewakili refer pada variable isrname,email,salary,age
+
   const handleSubmit = (e) => {
     e.preventDefault()
-    //id dimasukan disni jangan diawal2 !
-    const newPerson = { ...person, id: new Date().getTime() }
-    setPeople((people) => {
-      return [...people, newPerson]
+    //spreading masing2 aray people yg bukan yg diupdate
+    //nah tapi kita tenabah dari id itk person kita ganti dgn newPersin
+    //baru dimasukan ke people array
+    const newPerson = { ...person, id: new Date().getTime().toString() }
+    setPeople([...people, newPerson])
+    setPerson({
+      firstName: "",
+      email: "",
+      age: "",
+      salary: "",
     })
   }
 
@@ -62,60 +62,58 @@ const ControlMultipleInputs = () => {
     <>
       <article>
         <form className='form' onSubmit={handleSubmit}>
-          {/* firstName */}
           <div className='form-control'>
-            <label htmlFor='firstName'>Name : </label>
+            <label htmlFor='firstName'>FirstName</label>
             <input
               type='text'
               id='firstName'
               name='firstName'
               value={person.firstName}
-              onChange={setChange}
+              onChange={handleChange}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='email'>Email : </label>
+            <label htmlFor='email'>Email</label>
             <input
-              type='email'
+              type='text'
               id='email'
               name='email'
               value={person.email}
-              onChange={setChange}
+              onChange={handleChange}
             />
           </div>
           <div className='form-control'>
-            <label htmlFor='age'>Age :</label>
-            <input
-              type='text'
-              id='age'
-              name='age'
-              placeholder='age'
-              value={person.age}
-              onChange={setChange}
-            />
-          </div>
-          <div className='form-control'>
-            <label htmlFor='salary'>Salary :</label>
+            <label htmlFor='salary'>Salary</label>
             <input
               type='text'
               id='salary'
               name='salary'
-              placeholder='salary'
               value={person.salary}
-              onChange={setChange}
+              onChange={handleChange}
             />
           </div>
-
-          <button type='submit'>add person</button>
+          <div className='form-control'>
+            <label htmlFor='age'>age</label>
+            <input
+              type='number'
+              id='age'
+              name='age'
+              value={person.age}
+              onChange={handleChange}
+            />
+          </div>
+          <button className='btn' type='submit'>
+            add Person
+          </button>
         </form>
-        {people.map((person, index) => {
-          const { id, firstName, email, age, salary } = person
+        {people.map((item, index) => {
+          const { id, firstName, email, salary, age } = item
           return (
             <div className='item' key={id}>
               <h4>{firstName}</h4>
-              <p>{email}</p>
-              <p>{age}</p>
-              <p>{salary}</p>
+              <p>
+                {email} {salary} {age}
+              </p>
             </div>
           )
         })}
