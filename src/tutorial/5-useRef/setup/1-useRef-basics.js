@@ -7,11 +7,26 @@ import React, { useEffect, useRef } from "react"
 /*
 jadi sebenarnya utk apa useRef itu ?
 jadi sebenarnya useRef ini tidak sama dgn element.target.value 
-dimana re-render perbaharui value ,jadi bebas dari control kita sndir ygreferensilan 
+dimana re-render perbaharui value ,jadi bebas dari control kita sndir ygreferensikan
 atribut ref padanya 
 nah dgn useRef ini kita sudah beri inisial value dulu pada inputBox atau element2 di html tsb
 nah cara ambilnya adalah pada saat "current" yg artinya saat sekeang maka itu diambil crruent.value
 nah 
+nah caranya supaya dapat ambil current value kita butuh batunaya useEffect 
+disni varaible reContainer = useRef(null) degan default null
+//jadi yg dambil varaible refcontainer.curremt.focus <--- nilainya diambil 
+ useEffect(() => {
+    console.log(refContainer.current)
+    refContainer.current.focus()
+  }, [refContainer]) <---perubaha ktriger dan ambil currentFocus nilainya 
+
+  //nah pada renderd jsx bagian return ( 
+    //dibagaian input dlm case ini kita mau ambil value dari bagian input maka 
+    //ref itu varaiblen ya di ref dgn props ref = prtoperty variable useRef yg sudah kita declate sbb:
+     <input type='text' ref={refContainer} />  <---dimana refContainer sudah dideclare doatas 
+     //yaitu dibawah input function utama :
+     const refContainer = useRef(null)
+   )
 
 */
 
@@ -21,6 +36,7 @@ const UseRefBasics = () => {
   //prubahan statenya berubah karena adanya useEffect!
   //dibagian jsx jangan lupa propsnnya pake ref={}
   const refContainer = useRef(null)
+  const divRefContainer = useRef(null)
   const handleSubmit = (e) => {
     e.preventDefault()
     console.log(refContainer)
@@ -28,9 +44,12 @@ const UseRefBasics = () => {
   }
   //useEffec harus sndiri gak bileh ada dlm function event
   useEffect(() => {
-    console.log(refContainer.current)
-    refContainer.current.focus()
-  }, [refContainer])
+    console.log(refContainer.current) //input
+    console.log(divRefContainer.current) //<div>Hello Word</div>
+    //kalau mau isinya ya harus tambah dot value
+    //console.log(divRefContainer.current.value)
+    refContainer.current.focus() //utk focus ke variable refContaier isi current valuenya
+  }, [refContainer, divRefContainer])
   return (
     <>
       <h3>useRef :</h3>
@@ -42,6 +61,7 @@ const UseRefBasics = () => {
           </button>
         </div>
       </form>
+      <div ref={divRefContainer}>Hello Word</div>
     </>
   )
 }
@@ -68,6 +88,19 @@ direferensikan refContainer.current.focus shingga ssecara alami perubahan yg dik
 langsung terupdate !! 
 
 
+*/
 
-
+/*
+jadi saya ulangi penggubaa useRef 
+1.declare dulu variablenya  mis const myCathRef = useRef()
+2.buat useEffect utk ambil prubahannya pas dirender diambil adlaah current 
+useEffect(()=> {
+  MyCatchRef.current.focus
+},[myCatchRef])
+3. di bagain jsz  ini adalah bagian yg mana ini ueRefnya apakah utk input kah 
+dll dalam hal ini diambil utk tangkap input maka taruh useRef pada input tsb 
+sbb:
+<input type="text" ref={MyCathcRef}
+jadi ingat jangalupa manaruh ref = atribute pada input html,echkbox dll 
+gyg patinya sperti itulah kerjanya 
 */
