@@ -1,19 +1,7 @@
-import React, { useEffect } from "react"
+import React from "react"
 
-const Modal = ({ textModal, closeModal }) => {
-  //jadi delay disni adalah menunda 3 detik closeModal function dispatch ke state
-  //agar isSHowOpen = false  ,stlah 3s
-  useEffect(() => {
-    //jalankan dispatch "CLOSE_MODAL " stah 3s
-    setTimeout(() => {
-      closeModal()
-    }, 2000)
-  })
-  return (
-    <div className='modal'>
-      <p>{textModal}</p>
-    </div>
-  )
+const Modal = () => {
+  return <h3> Iam Modal</h3>
 }
 
 export default Modal

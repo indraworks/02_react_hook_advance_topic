@@ -1,5 +1,5 @@
 import React from "react"
-import Setup from "./tutorial/5-useRef/setup/1-useRef-basics"
+import Setup from "./tutorial/6-useReducer/setup"
 
 const App = () => {
   return (
@@ -25,7 +25,6 @@ Nah kita kerja pada tutorial di tutorial ada 2 setup dan final
 final adalah jawaban solkusiton dari om SMilga 
 yg setup kita mesti kerjakan sendiri 
 nah setup dimport di App js 
-
 
 
 
